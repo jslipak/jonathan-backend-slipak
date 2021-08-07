@@ -1,0 +1,38 @@
+[
+	{
+		"title": "Chocolate",
+		"price": 345,
+		"thumbnail": " htt...",
+		"id": 0
+	},
+	{
+		"title": "Alfojores",
+		"price": 45,
+		"thumbnail": " htt...",
+		"id": 1
+	},
+	{
+		"title": "Alfojores",
+		"price": 45,
+		"thumbnail": " htt...",
+		"id": 2
+	},
+	{
+		"title": "Caramelos",
+		"price": 562,
+		"thumbnail": " htt...",
+		"id": 3
+	},
+	{
+		"title": "Pastillas",
+		"price": 983,
+		"thumbnail": " htt...",
+		"id": 4
+	},
+	{
+		"title": "Chupetines",
+		"price": 124,
+		"thumbnail": " htt...",
+		"id": 5
+	}
+]
