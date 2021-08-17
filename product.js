@@ -6,19 +6,33 @@ const data = JSON.parse(
 
 class Producto {
   create(req, res) {
-    const insertData = req.query;
+    const insertData = req.body;
     insertData.id = data.length;
     data.push(insertData);
     return res.json({ producto: 'Producto creado' });
   }
-  show(_req, res) {
+  getAll(_req, res) {
     res.json({ items: data, cantidad: data.length });
     visitas.visitas.items = visitas.visitas.items + 1;
   }
-  findOne(req, res) {
+  findOneById(req, res) {
     let id = req.params.id;
     let text = data.find((val) => id == val.id);
     return res.json(text ? text : { error: 'Producto no encontrado' });
+  }
+  deleteOneById(req, res) {
+    let id = req.params.id;
+    if (id <= data.length) {
+      data.splice(id, 1);
+      return res.json({ response: 'Producto Eliminado' });
+    } else {
+      return res.json({ error: 'Producto no encontrado' });
+    }
+  }
+  updateOneById(req, res) {
+    let id = req.params.id;
+    data[id] = req.body;
+    return res.json({ producto: 'Producto Actualizado' });
   }
   random(_req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);
