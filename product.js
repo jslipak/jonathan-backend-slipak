@@ -24,7 +24,8 @@ class Producto {
   async deleteOneById(req, res) {
     let id = req.params.id;
     if (id <= data.length) {
-      data.splice(id, 1);
+      //data.splice(id + 1, 1); --> si borro la posicion tendria problemas con el id
+      data[id] = {};
       await fs.promises.writeFile('./productos.json', JSON.stringify(data));
       return res.json({ response: 'Producto Eliminado' });
     } else {
@@ -34,7 +35,7 @@ class Producto {
   async updateOneById(req, res) {
     let id = req.params.id;
     data[id] = req.body;
-    data[id].id = id;
+    data[id].id = parseInt(id);
     await fs.promises.writeFile('./productos.json', JSON.stringify(data));
     return res.json({ producto: 'Producto Actualizado' });
   }
