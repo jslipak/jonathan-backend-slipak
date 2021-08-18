@@ -5,10 +5,11 @@ const data = JSON.parse(
 );
 
 class Producto {
-  create(req, res) {
+  async create(req, res) {
     const insertData = req.body;
     insertData.id = data.length;
     data.push(insertData);
+    await fs.promises.writeFile('./productos.json', JSON.stringify(data));
     return res.json({ producto: 'Producto creado' });
   }
   getAll(_req, res) {
@@ -20,18 +21,21 @@ class Producto {
     let text = data.find((val) => id == val.id);
     return res.json(text ? text : { error: 'Producto no encontrado' });
   }
-  deleteOneById(req, res) {
+  async deleteOneById(req, res) {
     let id = req.params.id;
     if (id <= data.length) {
       data.splice(id, 1);
+      await fs.promises.writeFile('./productos.json', JSON.stringify(data));
       return res.json({ response: 'Producto Eliminado' });
     } else {
       return res.json({ error: 'Producto no encontrado' });
     }
   }
-  updateOneById(req, res) {
+  async updateOneById(req, res) {
     let id = req.params.id;
     data[id] = req.body;
+    data[id].id = id;
+    await fs.promises.writeFile('./productos.json', JSON.stringify(data));
     return res.json({ producto: 'Producto Actualizado' });
   }
   random(_req, res) {

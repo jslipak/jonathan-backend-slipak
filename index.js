@@ -4,11 +4,7 @@ const puerto = 8080;
 const Producto = require('./product');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-//app.get('/', (_req, res) => {
-//res.send('Hola Mundo');
-//});
-
+app.use(express.static('public'));
 // Router
 app.get('/api/productos/listar', Producto.getAll);
 app.get('/api/productos/listar/:id', Producto.findOneById);
