@@ -13,8 +13,10 @@ class Producto {
     return res.json({ producto: 'Producto creado' });
   }
   getAll(_req, res) {
-    res.json({ items: data, cantidad: data.length });
     visitas.visitas.items = visitas.visitas.items + 1;
+    //res.json({ items: data, cantidad: data.length });
+    const dataFilter = data.filter((val) => Object.keys(val).length);
+    res.render('index', { products: dataFilter });
   }
   findOneById(req, res) {
     let id = req.params.id;
