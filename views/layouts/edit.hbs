@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Porducto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body>
+    <div class="container">
+        {{> _navbar}}
+        <form id="formEdit">
+            <div class="jumbotron mt-5">
+                <legend>Editar Producto</legend>
+                {{> _product }}
+                <form>
+            </div>
+    </div>
+</body>
+<script>
+    const form = document.getElementById("formEdit")
+    form.addEventListener("submit", (e) =>
+    {
+        e.preventDefault();
+        let input = document.querySelectorAll('input')
+        console.log(input)
+        let objSend = {
+            title: input[0].value,
+            price: input[1].value,
+            thumbnail: input[2].value
+        }
+        console.log(objSend)
+        fetch(`http://127.0.0.1:8080/api/productos/{{edit.id}}`,
+        {
+            method: "PUT",
+            headers:
+            {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(objSend)
+        })
+    })
+</script>

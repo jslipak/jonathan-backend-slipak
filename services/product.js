@@ -35,11 +35,20 @@ class Producto {
     }
   }
   async updateOneById(req, res) {
-    let id = req.params.id;
-    data[id] = req.body;
-    data[id].id = parseInt(id);
-    await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-    return res.json({ producto: 'Producto Actualizado' });
+    let id = parseInt(req.params.id);
+    console.log(req);
+    if (id <= data.length) {
+      data[id] = req.body;
+      data[id].id = id;
+      console.log('esto es data:', data.length, 'este es el id:', id);
+      await fs.promises.writeFile('./productos.json', JSON.stringify(data));
+      return res.json({ producto: 'Producto Actualizado' });
+    } else {
+      return res.json({ error: 'Producto no encontrado' });
+    }
+  }
+  getDataId(id) {
+    return data[id];
   }
   random(_req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);
