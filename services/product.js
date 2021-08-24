@@ -10,7 +10,8 @@ class Producto {
     insertData.id = data.length;
     data.push(insertData);
     await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-    return res.json({ producto: 'Producto creado' });
+    //return res.json({ producto: 'Producto creado' });
+    return res.redirect('/api/productos/new');
   }
   getAll(_req, res) {
     visitas.visitas.items = visitas.visitas.items + 1;
