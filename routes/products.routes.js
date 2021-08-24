@@ -8,8 +8,9 @@ route.get('/new', (req, res) => {
 
 route.get('/edit/:id', async (req, res) => {
   const id = req.params.id;
+  console.log(id)
   const temp = await Producto.getDataId(id);
-  console.log(temp);
+  console.log('porque underfined:',temp);
   return res.render('edit', { layout: 'edit', edit: temp });
 });
 

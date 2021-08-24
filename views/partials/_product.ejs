@@ -1,14 +1,14 @@
-
+<% console.log(data)%>
                 <div class="mb-3">
                     <label for="title" class="form-label">Titulo:</label>
-                    <input  required type="text" name="title" class="form-control" value={{#if edit.price}}{{edit.title}}{{/if}}>
+                    <input  required type="text" name="title" class="form-control" value="<%- data && data.title %>">
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Precio:</label>
-                    <input required type="number" name="price" class="form-control" value={{#if edit.price}}{{edit.price}}{{/if}}>
+                    <input required type="number" name="price" class="form-control" value="<%- data && data.price %>">
                 </div>
                 <div class="mb-3">
                     <label for="thumbnail" class="form-label">Thumbnail</label>
-                    <input required type="text" name="thumbnail" class="form-control" value={{#if edit.price}}{{edit.thumbnail}}{{/if}}>
+                    <input required type="text" name="thumbnail" class="form-control" value="<%- data &&  data.thumbnail%>">
                 </div>
                 <button type="submit" class="float-end btn btn-primary">Submit</button>

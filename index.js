@@ -10,18 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/api', Routes);
-app.engine(
-  'hbs',
-  handlebars({
-    extname: 'hbs',
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials',
-    defaultLayout: 'index',
-  }),
-);
-
+app.set('view engine', 'ejs');
 app.set('views', './views/layouts');
-app.set('view engine', 'hbs');
 
 const server = app.listen(puerto, () => {
   console.log(`Servidor inicializado en el puerto ${server.address().port}`);

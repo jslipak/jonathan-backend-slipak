@@ -10,7 +10,7 @@
 
 <body>
     <div class="container">
-        {{> _navbar}}
-        {{> _table}}
+        <%- include('../partials/_navbar') %>
+        <%- include('../partials/_table', {data: products})%>
     </div>
 </body>

@@ -10,11 +10,12 @@
 
 <body>
     <div class="container">
-        {{> _navbar}}
+        <%- include('../partials/_navbar') %>
         <form id="formEdit">
             <div class="jumbotron mt-5">
                 <legend>Editar Producto</legend>
-                {{> _product }}
+                <% console.log(edit)%>
+                <%- include('../partials/_product',  {data: edit}) %>
                 <form>
             </div>
     </div>
@@ -32,7 +33,7 @@
             thumbnail: input[2].value
         }
         console.log(objSend)
-        fetch(`http://127.0.0.1:8080/api/productos/{{edit.id}}`,
+        fetch(`http://127.0.0.1:8080/api/productos/<%- edit.id %>`,
         {
             method: "PUT",
             headers:
@@ -41,6 +42,8 @@
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(objSend)
+        }).then(()=>{
+        window.location.href = "/api/productos"
         })
     })
 </script>
