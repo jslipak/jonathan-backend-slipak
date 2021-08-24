@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/api', Routes);
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 app.set('views', './views/layouts');
 
 const server = app.listen(puerto, () => {
