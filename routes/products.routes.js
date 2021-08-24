@@ -8,6 +8,8 @@ route.get('/new', (req, res) => {
 
 route.get('/edit/:id', async (req, res) => {
   const id = req.params.id;
+  const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  console.log(fullUrl)
   console.log(id)
   const temp = await Producto.getDataId(id);
   console.log('porque underfined:',temp);
