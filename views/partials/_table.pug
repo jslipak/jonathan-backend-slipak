@@ -1,34 +1,28 @@
-<table class="table mt-5">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Titulo</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Thumbnail</th>
-            <th scope="col">Acciones</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <% data.forEach(function(product) { %>
-        <tr>
-            <th scope="row"><a href="/api/productos/<%- product.id %>"><%- product.id %></a></th>
-            <td><%- product.title %></td>
-            <td><%- product.price %></td>
-            <td><%- product.thumbnail %></td>
-            <td>
-                <a href="/api/productos/edit/<%- product.id %>">Edit</a>
-                <a href="/api/productos"   onclick="borrarProducto(<%- product.id %>)">Borrar</a>
-
-            </td>
-        </tr>
-        <% }) %> 
-    </tbody>
-</table>
-<script>
-    function borrarProducto(id) {
-        fetch(`http://127.0.0.1:8080/api/productos/${id}`,
-            {    method: "DELETE" })
-        location.reload();
-    }
-</script>
+html
+  body
+    table.table.mt-5
+      thead
+        tr
+          th(scope='col') #
+          th(scope='col') Titulo
+          th(scope='col') Precio
+          th(scope='col') Thumbnail
+          th(scope='col') Acciones
+      tbody
+        each product in products
+            tr
+              th(scope='row')
+                  -var id= product.id
+                  a(href='/api/productos/' + id)= product.id
+              td=  product.title
+              td=  product.price
+              td=  product.thumbnail 
+              td
+                a(class="mr-3 p-3" href='/api/productos/edit/' + id) Edit
+                a(class="ml-3 p-3" href='/api/productos' onclick='borrarProducto(' + id +')') Borrar
+    script.
+      function borrarProducto(id) {
+      fetch(`http://127.0.0.1:8080/api/productos/${id}`,
+      {    method: "DELETE" })
+      location.reload();
+      }
