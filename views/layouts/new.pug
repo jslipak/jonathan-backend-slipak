@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Agregar Porducto</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-</head>
-
-<body>
-    <div class="container">
-        <form action="/api/productos" method="post">
-            <%- include('../partials/_navbar') %>
-            <div class="jumbotron mt-5">
-                <legend>Nuevo Producto</legend>
-                <%- include('../partials/_product', {data: true}) %>
-        </form>
-        </div>
-    </div>
-</body>
+doctype html
+head
+  meta(charset='UTF-8')
+  title Agregar Porducto
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/css/bootstrap.css')
+.container
+  include ../partials/_navbar
+  form(action='/api/productos' method='post')
+    .jumbotron.mt-5
+      legend Nuevo Producto
+      include ../partials/_product.pug

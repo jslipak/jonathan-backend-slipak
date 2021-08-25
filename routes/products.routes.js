@@ -10,7 +10,6 @@ route.get('/edit/:id', async (req, res) => {
   const id = req.params.id;
   const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   const temp = await Producto.getDataId(id);
-  console.log('porque underfined:', temp);
   return res.render('edit', { layout: 'edit', edit: temp });
 });
 

@@ -1,14 +1,13 @@
-<% console.log(data)%>
-                <div class="mb-3">
-                    <label for="title" class="form-label">Titulo:</label>
-                    <input  required type="text" name="title" class="form-control" value="<%- data && data.title %>">
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Precio:</label>
-                    <input required type="number" name="price" class="form-control" value="<%- data && data.price %>">
-                </div>
-                <div class="mb-3">
-                    <label for="thumbnail" class="form-label">Thumbnail</label>
-                    <input required type="text" name="thumbnail" class="form-control" value="<%- data &&  data.thumbnail%>">
-                </div>
-                <button type="submit" class="float-end btn btn-primary">Submit</button>
+- const value = edit ? [edit.title, edit.price, edit.thumbnail] : []
+.mb-3
+  label.form-label(for='title') Titulo:
+  input.form-control(required='' type='text' name='title' value=value[0])
+.mb-3
+  label.form-label(for='price') Precio:
+  input.form-control(required='' type='number' name='price' value=value[1])
+.mb-3
+  label.form-label(for='thumbnail') Thumbnail
+  input.form-control(required='' type='text' name='thumbnail' value=value[2])
+button.float-end.btn.btn-primary(type='submit') Submit
+
+
