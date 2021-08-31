@@ -6,11 +6,34 @@
     <title>Agregar Porducto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css">
+    {{!-- <script src="/socket.io/socket.io.js"></script> --}}
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
     <div class="container">
-        {{> _navbar}}
-        {{> _table}}
+        {{> _navbar}} {{> _product}} {{> _table}}
     </div>
+    <div id="test">
+
+    </div>
+    <script>
+        var socket = io()
+        const tbody = document.querySelector('tbody')
+        const btnAdd = document.querySelector('button')
+        document.addEventListener('click', (e) =>
+        {
+            console.log("click", e)
+        })
+        socket.on("mensaje", (msg) => {
+            console.log(socket.id);
+            socket.on('mensaje', (msg) => {console.log(msg)
+            tbody.insertAdjacentHTML('beforeend', msg)
+            })
+        });
+        
+    </script>
 </body>
+
+
