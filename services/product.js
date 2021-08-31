@@ -13,6 +13,15 @@ class Producto {
     //return res.json({ producto: 'Producto creado' });
     return res.redirect('/api/productos/new');
   }
+   async createIO(obj) {
+    const insertData = obj
+    insertData.id = data.length;
+    data.push(insertData);
+    await fs.promises.writeFile('./productos.json', JSON.stringify(data));
+    //return res.json({ producto: 'Producto creado' });
+    return console.log("se agrego un producto");
+  }
+  
   getAll(_req, res) {
     visitas.visitas.items = visitas.visitas.items + 1;
     //res.json({ items: data, cantidad: data.length });

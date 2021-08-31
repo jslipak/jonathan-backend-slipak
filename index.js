@@ -6,7 +6,7 @@ const puerto = 8080;
 const Routes = require('./routes');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
-
+const Productos = require('./services/product')
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -26,11 +26,11 @@ app.engine(
 );
 
 io.on('connection', (socket) => {
-console.log(`Usuario conectado: ${socket.id}`);
-socket.on("mensaje", (arg) => {
-    console.log(arg);
-    io.emit('mensaje', arg)
-});
+    console.log(`Usuario conectado: ${socket.id}`);
+    socket.on("mensaje", (arg) => {
+        io.emit('mensaje', arg)
+        Productos.createIO(arg)
+    });
 
 });
 
