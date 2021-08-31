@@ -18,8 +18,7 @@ class Producto {
     insertData.id = data.length;
     data.push(insertData);
     await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-    //return res.json({ producto: 'Producto creado' });
-    return console.log("se agrego un producto");
+    return insertData 
   }
   
   getAll(_req, res) {

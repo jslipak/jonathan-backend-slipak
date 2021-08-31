@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <title>Agregar Porducto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.css"> {{!--
-    <script src="/socket.io/socket.io.js"></script> --}}
-    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/socket.io/socket.io.js"></script>
 
 </head>
 
@@ -24,16 +22,23 @@
         const tbody = document.querySelector('tbody')
         const btnAdd = document.querySelector('button')
         btnAdd.addEventListener('click', (e) => {
+            console.log("click")
             const inputs = document.querySelectorAll("input")
             const title = inputs[0].value
             const price = inputs[1].value
             const thumbnail = inputs[2].value
-            const obj ={title,price, thumbnail}
-            addHtml = `<tr> <th scope="row"><a href="/api/productos/{{this.id}}">{{this.id}}</a></th>
-            <td>${title}</td> <td>${price}</td> <td>${thumbnail}</td> <td> <a href="/api/productos/edit/{{this.id}}">Edit</a> <a href="/api/productos"   onclick="borrarProducto({{this.id}})">Borrar</a> </td> </tr> `
-            socket.emit('mensaje', obj)
+            const obj = { title, price, thumbnail }
+            console.log("en listener:", obj)
+            socket.emit('producto', obj)
+        })
+            socket.on("producto", (msg)=>{
+                console.log("en socket:",msg)
+                const addHtml = `<tr> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th>
+            <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <a href="/api/productos"   onclick="borrarProducto(${msg.id})">Borrar</a> </td> </tr> `
             tbody.insertAdjacentHTML('beforeend', addHtml)
 
-        })
+            })
+
+
     </script>
 </body>

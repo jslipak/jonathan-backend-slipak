@@ -27,9 +27,10 @@ app.engine(
 
 io.on('connection', (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
-    socket.on("mensaje", (arg) => {
-        io.emit('mensaje', arg)
-        Productos.createIO(arg)
+    socket.on("producto", async (arg) => {
+        console.log(arg)
+        const element = await Productos.createIO(arg)
+        io.emit('producto', element)
     });
 
 });
