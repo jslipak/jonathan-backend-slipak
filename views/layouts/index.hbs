@@ -6,7 +6,9 @@
     <title>Agregar Porducto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js">
+
+    </script>
 
 </head>
 
@@ -21,24 +23,45 @@
         var socket = io()
         const tbody = document.querySelector('tbody')
         const btnAdd = document.querySelector('button')
+
+        function borrarProducto(id) {
+            fetch(`http://127.0.0.1:8080/api/productos/${id}`, {
+                method: "DELETE"
+            }).then(() => {
+                socket.emit("deleteProduct", id)
+
+            })
+        }
+
         btnAdd.addEventListener('click', (e) => {
-            console.log("click")
             const inputs = document.querySelectorAll("input")
             const title = inputs[0].value
             const price = inputs[1].value
             const thumbnail = inputs[2].value
-            const obj = { title, price, thumbnail }
-            console.log("en listener:", obj)
+            const obj = {
+                title,
+                price,
+                thumbnail
+            }
             socket.emit('producto', obj)
+            inputs[0].value =""
+            inputs[1].value =""
+            inputs[2].value =""
         })
-            socket.on("producto", (msg)=>{
-                console.log("en socket:",msg)
-                const addHtml = `<tr> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th>
-            <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <a href="/api/productos"   onclick="borrarProducto(${msg.id})">Borrar</a> </td> </tr> `
+        socket.on("producto", (msg) => {
+            console.log("en socket:", msg)
+            const addHtml = `<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
             tbody.insertAdjacentHTML('beforeend', addHtml)
-
+        })
+        socket.on("deleteProduct", (msg) => {
+            const deleteItem = document.getElementById(msg)
+            deleteItem.remove();
+        })
+            socket.on("updateProduct", (msg) =>  {
+                console.log(msg)
+                const change = document.getElementById(msg.id)
+                change.innerHTML=`<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
+ 
             })
-
-
     </script>
 </body>

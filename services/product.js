@@ -13,14 +13,14 @@ class Producto {
     //return res.json({ producto: 'Producto creado' });
     return res.redirect('/api/productos/new');
   }
-   async createIO(obj) {
-    const insertData = obj
+  async createIO(obj) {
+    const insertData = obj;
     insertData.id = data.length;
     data.push(insertData);
     await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-    return insertData 
+    return insertData;
   }
-  
+
   getAll(_req, res) {
     visitas.visitas.items = visitas.visitas.items + 1;
     //res.json({ items: data, cantidad: data.length });
@@ -45,11 +45,9 @@ class Producto {
   }
   async updateOneById(req, res) {
     let id = parseInt(req.params.id);
-    console.log(req);
     if (id <= data.length) {
       data[id] = req.body;
       data[id].id = id;
-      console.log('esto es data:', data.length, 'este es el id:', id);
       await fs.promises.writeFile('./productos.json', JSON.stringify(data));
       return res.json({ producto: 'Producto Actualizado' });
     } else {

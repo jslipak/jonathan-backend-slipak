@@ -11,25 +11,18 @@
     </thead>
     <tbody>
         {{#each products}}
-        <tr>
-            <th scope="row"><a href="/api/productos/{{this.id}}">{{this.id}}</a></th>
+            <tr id="{{this.id}}">
+           <th scope="row"><a href="/api/productos/{{this.id}}">{{this.id}}</a></th>
             <td>{{this.title}}</td>
             <td>{{this.price}}</td>
             <td>{{this.thumbnail}}</td>
             <td>
                 <a href="/api/productos/edit/{{this.id}}">Edit</a>
-                <a href="/api/productos"   onclick="borrarProducto({{this.id}})">Borrar</a>
+                <button onclick="borrarProducto({{this.id}})">Borrar</button>
 
             </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-<script>
-    function borrarProducto(id) {
-        fetch(`http://127.0.0.1:8080/api/productos/${id}`,
-            {    method: "DELETE" })
-            {{!-- .then(()=> location.reload()) --}}
-        location.reload();
-    }
-</script>
+

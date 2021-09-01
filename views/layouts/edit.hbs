@@ -6,6 +6,7 @@
     <title>Agregar Porducto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 
 <body>
@@ -21,6 +22,7 @@
 </body>
 <script>
     const form = document.getElementById("formEdit")
+    var socket = io()
     form.addEventListener("submit", (e) =>
     {
         e.preventDefault();
@@ -29,7 +31,8 @@
         let objSend = {
             title: input[0].value,
             price: input[1].value,
-            thumbnail: input[2].value
+            thumbnail: input[2].value,
+            id: {{edit.id}}
         }
         console.log(objSend)
         fetch(`http://127.0.0.1:8080/api/productos/{{edit.id}}`,
@@ -41,6 +44,9 @@
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(objSend)
+        }).then(()=>{
+            socket.emit("updateProduct",objSend)
+            window.location.href = '../'
         })
     })
 </script>
