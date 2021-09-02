@@ -1,0 +1,26 @@
+<div class="jumbotron border ">
+    <h1 class="mx-auto display-4 text-center">Chat Messages</h1>
+    <div class="border mx-auto rounded" style="height: 400px;background-color:#5C636A;width: 90%"></div>
+    <div class="mb-3">
+        <label for="user" class="form-label">Usuario</label>
+        <input id="user" required type="text" name="user" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="mensaje" class="form-label">Meensaje</label>
+        <input id="msg" required type="text" name="mensaje" class="form-control">
+    </div>
+    <div class="mb-3">
+        <button id="btn-msg" class="float-end btn btn-primary">Submit</button>
+    </div>
+</div>
+<script>
+    const btnMsg = document.querySelector("#btn-msg")
+    const user = document.querySelector("#user")
+    const msg = document.querySelector("#msg")
+    
+    btnMsg.addEventListener('click', ()=>{
+        console.log("click")
+        socket.emit('msg', {usuario: user.value, msg: msg.value})
+    })
+    
+</script>

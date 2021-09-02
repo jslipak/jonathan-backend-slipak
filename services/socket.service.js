@@ -14,5 +14,9 @@ module.exports = function (io) {
       console.log('line 40 index.js:', obj);
       io.emit('updateProduct', obj);
     });
+    socket.on('msg', (obj) => {
+      obj.date = new Date();
+      console.log(obj);
+    });
   });
 };
