@@ -6,7 +6,7 @@ const puerto = 8080;
 const Routes = require('./routes');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
-const Productos = require('./services/product');
+const SocketIO = require('./services/socket.service');
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(
@@ -27,20 +27,7 @@ app.engine(
   }),
 );
 
-io.on('connection', (socket) => {
-  console.log(`Usuario conectado: ${socket.id}`);
-  socket.on('producto', async (arg) => {
-    const element = await Productos.createIO(arg);
-    io.emit('producto', element);
-  });
-  socket.on('deleteProduct', (arg) => {
-    io.emit('deleteProduct', arg);
-  });
-  socket.on('updateProduct', (obj) => {
-    console.log('line 40 index.js:', obj);
-    io.emit('updateProduct', obj);
-  });
-});
+SocketIO(io);
 
 app.set('views', './views/layouts');
 app.set('view engine', 'hbs');
