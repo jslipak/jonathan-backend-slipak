@@ -1,4 +1,5 @@
 const Productos = require('./product');
+const messages = require('./message.service');
 
 module.exports = function (io) {
   io.on('connection', (socket) => {
@@ -16,7 +17,8 @@ module.exports = function (io) {
     });
     socket.on('msg', (obj) => {
       obj.date = new Date();
-      console.log(obj);
+      messages.create(obj);
+      io.emit('msg', obj);
     });
   });
 };

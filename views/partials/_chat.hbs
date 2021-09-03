@@ -1,6 +1,12 @@
 <div class="jumbotron border ">
     <h1 class="mx-auto display-4 text-center">Chat Messages</h1>
-    <div class="border mx-auto rounded" style="height: 400px;background-color:#5C636A;width: 90%"></div>
+    <div class="border mx-auto rounded" style="height: 400px;background-color:#5C636A;width: 90%; overflow:scroll;">
+        <ul id="msgToInsert">
+            {{#each messages}}
+            <li> {{this.usuario}}:  {{this.msg}} @ {{this.date}}</li>
+            {{/each}}
+        </ul>
+    </div>
     <div class="mb-3">
         <label for="user" class="form-label">Usuario</label>
         <input id="user" required type="text" name="user" class="form-control">
@@ -14,13 +20,26 @@
     </div>
 </div>
 <script>
+    var socket = io()
     const btnMsg = document.querySelector("#btn-msg")
+    const msgToInsert = document.querySelector("#msgToInsert")
     const user = document.querySelector("#user")
     const msg = document.querySelector("#msg")
-    
-    btnMsg.addEventListener('click', ()=>{
-        console.log("click")
-        socket.emit('msg', {usuario: user.value, msg: msg.value})
+
+    btnMsg.addEventListener('click', () =>
+    {
+        let obj = {
+            usuario: user.value,
+            msg: msg.value
+        }
+        socket.emit("msg", obj)
+    });
+
+
+    socket.on("msg", (obj) =>
+    {
+        let text =
+            `<li>${obj.usuario}:  ${obj.msg} @ ${obj.date}</li>`
+        msgToInsert.insertAdjacentHTML("beforeend", text)
     })
-    
 </script>
