@@ -29,7 +29,7 @@ class Producto {
     visitas.visitas.items = visitas.visitas.items + 1;
     //res.json({ items: data, cantidad: data.length });
     const dataFilter = data.filter((val) => Object.keys(val).length);
-    res.render('index', { products: dataFilter, messages: messages });
+    res.render('index', { products: dataFilter, messages: messages.reverse() });
   }
   findOneById(req, res) {
     let id = req.params.id;

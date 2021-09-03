@@ -1,9 +1,10 @@
 <div class="jumbotron border ">
     <h1 class="mx-auto display-4 text-center">Chat Messages</h1>
-    <div class="border mx-auto rounded" style="height: 400px;background-color:#5C636A;width: 90%; overflow:scroll;">
-        <ul id="msgToInsert">
+    <div class="border mx-auto rounded" style="height: 400px;width: 90%; overflow:scroll;">
+        <ul id="msgToInsert" style="list-style: none;">
             {{#each messages}}
-            <li> {{this.usuario}}:  {{this.msg}} @ {{this.date}}</li>
+            <li style="font-size: 20px; list-style: none;"> <span style="color:blue">{{this.usuario}}:</span> <span style="color: green">{{this.msg}}</span> @ <span style="color: brown">{{this.date}}</span></li>
+            <hr/>
             {{/each}}
         </ul>
     </div>
@@ -39,7 +40,7 @@
     socket.on("msg", (obj) =>
     {
         let text =
-            `<li>${obj.usuario}:  ${obj.msg} @ ${obj.date}</li>`
-        msgToInsert.insertAdjacentHTML("beforeend", text)
+            `<li style="font-size: 20px; list-style: none;"><span style="color:blue">${obj.usuario}: </span> <span style="color:green">${obj.msg}</span> @<span style="color:brown"> ${obj.date}</span></li><hr/>`
+        msgToInsert.insertAdjacentHTML("afterbegin", text)
     })
 </script>
