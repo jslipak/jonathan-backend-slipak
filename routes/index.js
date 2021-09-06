@@ -5,3 +5,4 @@ const productRouter = require('./products.routes');
 route.use('/productos', productRouter);
 
 module.exports = route;
+//export default route;
