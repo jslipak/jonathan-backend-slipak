@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\":\"Prueba\", \"price\": 3523, \"thumbnail\": \"https://newImetem\", \"user\":\"admin\"}",
+							"raw": "{\n\"title\": \"Prueba\",\n\"price\": 3523,\n\"thumbnail\": \"https://newImetem\",\n\"stock\": 24,\n\"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n\"codigo\": \"ab2342\",\n\"user\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -96,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\":\"Prueba22\", \"price\": 3523, \"thumbnail\": \"https://newImetem\"}",
+							"raw": "{\n\"title\": \"PruebaChange\",\n\"price\": 3523,\n\"thumbnail\": \"https://newImetem\",\n\"stock\": 24,\n\"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n\"codigo\": \"ab2342\",\n\"user\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

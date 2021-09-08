@@ -8,6 +8,7 @@ class Producto {
   async create(req, res) {
     const insertData = req.body;
     insertData.id = data.length;
+    insertData.timestamp = Date.now();
     data.push(insertData);
     await fs.promises.writeFile('./productos.json', JSON.stringify(data));
     return res.json({ producto: 'Producto creado' });
