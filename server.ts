@@ -1,10 +1,11 @@
-const express = require('express');
+import * as express from 'express';
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const puerto = 8080;
-const Routes = require('./routes');
-const morgan = require('morgan');
+//import * as Routes from './routes/index.js';
+const Routes = require('./routes')
+import * as morgan from 'morgan';
 const handlebars = require('express-handlebars');
 const SocketIO = require('./services/socket.service');
 app.use(morgan('dev'));
@@ -35,4 +36,4 @@ const server = http.listen(puerto, () => {
   console.log(`Servidor inicializado en el puerto ${server.address().port}`);
 });
 
-server.on('error', (err) => console.log(`Error en servidor ${err}`));
+server.on('error', (err: any) => console.log(`Error en servidor ${err}`));
