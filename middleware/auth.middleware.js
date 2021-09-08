@@ -1,5 +1,4 @@
 const auth = function (req, res, next) {
-  console.log(req.body);
   const body = req.body;
   if (body.user === 'admin') {
     delete body.user;
