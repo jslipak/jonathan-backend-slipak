@@ -70,6 +70,15 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user\":\"admin\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://127.0.0.1:8080/api/productos/3",
 							"protocol": "http",
@@ -154,6 +163,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find One by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/productos/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"productos",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -161,16 +194,21 @@
 			"name": "Cart",
 			"item": [
 				{
-					"name": "Post Product",
+					"name": "Create orden",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id_product\": 23}"
+							"raw": "[{\n       \n                    \"id\": 3,\n                    \"title\": \"Chocoa\",\n                    \"price\": 3523,\n                    \"thumbnail\": \"https://newImetem\",\n                    \"stock\": 24,\n                    \"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n                    \"codigo\": \"ab2342\",\n                    \"user\": \"admin\"\n                },{\n                    \"id\": 1,\n                    \"title\": \"Alfa\",\n                    \"price\": 3523,\n                    \"thumbnail\": \"https://newImetem\",\n                    \"stock\": 24,\n                    \"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n                    \"codigo\": \"ab2342\",\n                    \"user\": \"admin\"\n                }]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/api/carritos/34/agregar/23",
+							"raw": "http://127.0.0.1:8080/api/carritos/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -182,9 +220,7 @@
 							"path": [
 								"api",
 								"carritos",
-								"34",
-								"agregar",
-								"23"
+								""
 							]
 						}
 					},
@@ -196,7 +232,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/api/carritos/listar/234",
+							"raw": "http://127.0.0.1:8080/api/carritos/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -208,8 +244,104 @@
 							"path": [
 								"api",
 								"carritos",
-								"listar",
-								"234"
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ono Order by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user\":\"admin\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/carritos/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carritos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show all Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/carritos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carritos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add product in ordens",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"id\": 3,\n\"title\": \"Bono bom\",\n\"price\": 3523,\n\"thumbnail\": \"https://newImetem\",\n\"stock\": 24,\n\"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n\"codigo\": \"ab2342\",\n\"user\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/carritos/2/product",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carritos",
+								"2",
+								"product"
 							]
 						}
 					},

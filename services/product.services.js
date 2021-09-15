@@ -19,7 +19,7 @@ class Producto {
   }
   findOneById(req, res) {
     let id = req.params.id;
-    let text = data.find((val) => id == val.id);
+    let text = data.filter((item) => item).find((val) => id == val.id);
     return res.json(text ? text : { error: 'Producto no encontrado' });
   }
   async deleteOneById(req, res) {
