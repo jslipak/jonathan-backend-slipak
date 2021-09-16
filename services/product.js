@@ -1,12 +1,12 @@
 let visitas = { visitas: { items: 0, item: 0 } };
 const fs = require('fs');
+const dbMSG = require('../config/sqlite.config');
 const data = JSON.parse(
   fs.readFileSync('./productos.json', (encoding = 'utf8')),
 );
-
-const messages = JSON.parse(
-  fs.readFileSync('./messages.json', (encoding = 'utf8')),
-);
+//const messages = JSON.parse(
+//fs.readFileSync('./messages.json', (encoding = 'utf8')),
+//);
 
 class Producto {
   async create(req, res) {
@@ -25,11 +25,13 @@ class Producto {
     return insertData;
   }
 
-  getAll(_req, res) {
+  async getAll(_req, res) {
     visitas.visitas.items = visitas.visitas.items + 1;
     //res.json({ items: data, cantidad: data.length });
+    const msg = await dbMSG.find();
+    console.log(msg);
     const dataFilter = data.filter((val) => Object.keys(val).length);
-    res.render('index', { products: dataFilter, messages: messages.reverse() });
+    res.render('index', { products: dataFilter, messages: msg.reverse() });
   }
   findOneById(req, res) {
     let id = req.params.id;

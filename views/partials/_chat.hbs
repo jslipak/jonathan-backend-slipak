@@ -3,7 +3,7 @@
     <div class="border mx-auto rounded" style="height: 400px;width: 90%; overflow:scroll;">
         <ul id="msgToInsert" style="list-style: none;">
             {{#each messages}}
-            <li style="font-size: 20px; list-style: none;"> <span style="color:blue">{{this.usuario}}:</span> <span style="color: green">{{this.msg}}</span> @ <span style="color: brown">{{this.date}}</span></li>
+            <li style="font-size: 20px; list-style: none;"> <span style="color:blue">{{this.user}}:</span> <span style="color: green">{{this.msg}}</span> @ <span style="color: brown">{{this.date}}</span></li>
             <hr/>
             {{/each}}
         </ul>
@@ -30,7 +30,7 @@
     btnMsg.addEventListener('click', () =>
     {
         let obj = {
-            usuario: user.value,
+            user: user.value,
             msg: msg.value
         }
         socket.emit("msg", obj)
@@ -40,7 +40,7 @@
     socket.on("msg", (obj) =>
     {
         let text =
-            `<li style="font-size: 20px; list-style: none;"><span style="color:blue">${obj.usuario}: </span> <span style="color:green">${obj.msg}</span> @<span style="color:brown"> ${obj.date}</span></li><hr/>`
+            `<li style="font-size: 20px; list-style: none;"><span style="color:blue">${obj.user}: </span> <span style="color:green">${obj.msg}</span> @<span style="color:brown"> ${obj.date}</span></li><hr/>`
         msgToInsert.insertAdjacentHTML("afterbegin", text)
     })
 </script>
