@@ -4,7 +4,7 @@ const sqlMsg = require('../config/sqlite.config');
 class Mensaje {
   async create(obj) {
     console.log(obj);
-    sqlMsg.insert(obj);
+    sqlMsg.insert(obj, 'messages');
     console.log('se a agregado un nuevo mensaje:', obj);
   }
 }

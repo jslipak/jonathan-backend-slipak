@@ -9,7 +9,7 @@ route.get('/new', (req, res) => {
 route.get('/edit/:id', async (req, res) => {
   const id = req.params.id;
   const temp = await Producto.getDataId(id);
-  return res.render('edit', { layout: 'edit', edit: temp });
+  return res.render('edit', { layout: 'edit', edit: temp[0] });
 });
 
 route.get('/', Producto.getAll);

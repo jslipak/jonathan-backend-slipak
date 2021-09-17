@@ -1,67 +1,45 @@
 let visitas = { visitas: { items: 0, item: 0 } };
-const fs = require('fs');
-const dbMSG = require('../config/sqlite.config');
-const data = JSON.parse(
-  fs.readFileSync('./productos.json', (encoding = 'utf8')),
-);
-//const messages = JSON.parse(
-//fs.readFileSync('./messages.json', (encoding = 'utf8')),
-//);
+const db = require('../config/sqlite.config');
 
 class Producto {
   async create(req, res) {
     const insertData = req.body;
-    insertData.id = data.length;
-    data.push(insertData);
-    await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-    //return res.json({ producto: 'Producto creado' });
+    await db.insert(insertData, 'products');
     return res.redirect('/api/productos/new');
   }
   async createIO(obj) {
     const insertData = obj;
-    insertData.id = data.length;
-    data.push(insertData);
-    await fs.promises.writeFile('./productos.json', JSON.stringify(data));
+    const id = await db.insert(insertData, 'products');
+    insertData.id = id.id;
     return insertData;
   }
 
   async getAll(_req, res) {
     visitas.visitas.items = visitas.visitas.items + 1;
-    //res.json({ items: data, cantidad: data.length });
-    const msg = await dbMSG.find();
-    console.log(msg);
-    const dataFilter = data.filter((val) => Object.keys(val).length);
-    res.render('index', { products: dataFilter, messages: msg.reverse() });
+    const msg = await db.find('messages');
+    const productos = await db.find('products');
+    res.render('index', { products: productos, messages: msg.reverse() });
   }
-  findOneById(req, res) {
+  async findOneById(req, res) {
     let id = req.params.id;
-    let text = data.find((val) => id == val.id);
+    let text = await db.findOne(id, 'products');
     return res.json(text ? text : { error: 'Producto no encontrado' });
   }
   async deleteOneById(req, res) {
     let id = req.params.id;
-    if (id <= data.length) {
-      //data.splice(id + 1, 1); --> si borro la posicion tendria problemas con el id
-      data[id] = {};
-      await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-      return res.json({ response: 'Producto Eliminado' });
-    } else {
-      return res.json({ error: 'Producto no encontrado' });
-    }
+    await db.deleteOne(id, 'products');
+    return res.json({ response: 'Producto Eliminado' });
   }
+
   async updateOneById(req, res) {
     let id = parseInt(req.params.id);
-    if (id <= data.length) {
-      data[id] = req.body;
-      data[id].id = id;
-      await fs.promises.writeFile('./productos.json', JSON.stringify(data));
-      return res.json({ producto: 'Producto Actualizado' });
-    } else {
-      return res.json({ error: 'Producto no encontrado' });
-    }
+    const obj = req.body;
+    await db.updateOne(obj, id, 'products');
+    return res.json({ producto: 'Producto Actualizado' });
   }
-  getDataId(id) {
-    return data[id];
+  async getDataId(id) {
+    console.log(id);
+    return db.findOne(id, 'products');
   }
   random(_req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);

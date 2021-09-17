@@ -3,14 +3,25 @@ const config = require('../knexfile');
 
 const db = knex(config.development);
 
-function find() {
-  return db('messages').then((data) => data);
+function find(table) {
+  return db(table).then((data) => data);
 }
 
-function insert(post) {
-  return db('messages')
+function insert(post, table) {
+  return db(table)
     .insert(post)
-    .then((id) => ({ id: ids[0] }));
+    .then((id) => ({ id: id[0] }));
 }
 
-module.exports = { find, insert };
+function findOne(id, table) {
+  return db(table).where({ id: id });
+}
+
+function deleteOne(id, table) {
+  return db(table).where({ id: id }).del();
+}
+
+function updateOne(obj, id, table) {
+  return db(table).where({ id: id }).update(obj);
+}
+module.exports = { find, insert, findOne, deleteOne, updateOne };

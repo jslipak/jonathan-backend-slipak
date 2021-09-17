@@ -2,9 +2,13 @@
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
     connection: {
-      filename: './db/data.db3',
+      host: '127.0.0.1',
+      port: 3306,
+      user: 'your_database_user',
+      password: 'your_database_password',
+      database: 'myapp_te',
     },
     useNullAsDefault: true,
     migrations: {
