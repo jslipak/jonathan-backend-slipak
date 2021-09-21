@@ -23,20 +23,24 @@ class Carrito {
     );
   }
   async create(req, res) {
-    const product = req.body.map(({ id, cantidad }) => ({
-      ...products.find((x) => x.id == id),
-      cantidad,
-    }));
-    const insertData = {
-      id: data.length,
-      timestamp: Date.now(),
-      product,
-    };
-    data.push(insertData);
-    await fs.promises.writeFile('./ordens.json', JSON.stringify(data));
-    return res.json({
-      producto: 'Orden creado',
-    });
+    try {
+      const product = req.body.map(({ id, cantidad }) => ({
+        ...products.find((x) => x.id == id),
+        cantidad,
+      }));
+      const insertData = {
+        id: data.length,
+        timestamp: Date.now(),
+        product,
+      };
+      data.push(insertData);
+      await fs.promises.writeFile('./ordens.json', JSON.stringify(data));
+      return res.json({
+        producto: 'Orden creado',
+      });
+    } catch {
+      return res.json({ error: 'uno de los id no existen' });
+    }
   }
 
   async deleteOneById(req, res) {
@@ -58,6 +62,7 @@ class Carrito {
   async insertProductById(req, res) {
     const id = req.params.id;
     const insert = req.body;
+    if (!data[id]) return res.json({ error: 'no existe orden' });
     data[id].product.push(insert);
     await fs.promises.writeFile('./ordens.json', JSON.stringify(data));
     return res.json({
