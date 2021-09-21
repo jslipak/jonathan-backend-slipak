@@ -1,8 +1,8 @@
 const knex = require('knex');
-const config = require('../knexfile.mysql');
-//const config = require('../knexfile.mysql');
-
-const db = knex(config.development);
+const { NODE_ENV } = process.env;
+const config = require('../knexfile');
+console.log(NODE_ENV);
+const db = knex(config[NODE_ENV]);
 
 function find(table) {
   return db(table).then((data) => data);
