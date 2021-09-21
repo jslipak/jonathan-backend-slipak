@@ -38,7 +38,6 @@ class Producto {
     return res.json({ producto: 'Producto Actualizado' });
   }
   async getDataId(id) {
-    console.log(id);
     return db.findOne(id, 'products');
   }
   random(_req, res) {
