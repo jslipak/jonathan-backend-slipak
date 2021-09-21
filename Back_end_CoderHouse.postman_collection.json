@@ -200,7 +200,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n       \n                    \"id\": 3,\n                    \"title\": \"Chocoa\",\n                    \"price\": 3523,\n                    \"thumbnail\": \"https://newImetem\",\n                    \"stock\": 24,\n                    \"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n                    \"codigo\": \"ab2342\",\n                    \"user\": \"admin\"\n                },{\n                    \"id\": 1,\n                    \"title\": \"Alfa\",\n                    \"price\": 3523,\n                    \"thumbnail\": \"https://newImetem\",\n                    \"stock\": 24,\n                    \"Description\": \"oeuaoeuhtnaoseuhaoeuhtn\",\n                    \"codigo\": \"ab2342\",\n                    \"user\": \"admin\"\n                }]",
+							"raw": "[{\"id\":1,\"cantidad\": 34},{\"id\":2, \"cantidad\": 23}]",
 							"options": {
 								"raw": {
 									"language": "json"
