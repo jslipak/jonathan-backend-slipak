@@ -1,34 +1,42 @@
 const fs = require('fs');
 const data = JSON.parse(fs.readFileSync('./ordens.json', (encoding = 'utf8')));
-const product = JSON.parse(
+const products = JSON.parse(
   fs.readFileSync('./productos.json', (encoding = 'utf8')),
 );
 
 class Carrito {
   getAll(req, res) {
-    res.json({ ordenes: data, numero_de_ordenes: data.length });
+    res.json({
+      ordenes: data,
+      numero_de_ordenes: data.length,
+    });
   }
   findOneById(req, res) {
-    let id = req.params.id;
+    let { id } = req.params;
     let text = data.filter((item) => item).find((val) => id == val.id);
-    return res.json(text ? text : { error: 'Producto no encontrado' });
+    return res.json(
+      text
+        ? text
+        : {
+            error: 'Producto no encontrado',
+          },
+    );
   }
   async create(req, res) {
-    const insertData = {};
-    const productData = [];
-    const array = req.body;
-    array.forEach((item) => {
-      console.log(item);
-      const addProduct = product.find((x) => x.id == item.id);
-      addProduct.cantidad = item.cantidad;
-      productData.push(addProduct);
-    });
-    insertData.id = data.length;
-    insertData.timestamp = Date.now();
-    insertData.product = productData;
+    const product = req.body.map(({ id, cantidad }) => ({
+      ...products.find((x) => x.id == id),
+      cantidad,
+    }));
+    const insertData = {
+      id: data.length,
+      timestamp: Date.now(),
+      product,
+    };
     data.push(insertData);
     await fs.promises.writeFile('./ordens.json', JSON.stringify(data));
-    return res.json({ producto: 'Orden creado' });
+    return res.json({
+      producto: 'Orden creado',
+    });
   }
 
   async deleteOneById(req, res) {
@@ -37,9 +45,13 @@ class Carrito {
       //data.splice(id + 1, 1); --> si borro la posicion tendria problemas con el id
       data[id] = {};
       await fs.promises.writeFile('./ordens.json', JSON.stringify(data));
-      return res.json({ response: 'Orden Eliminado' });
+      return res.json({
+        response: 'Orden Eliminado',
+      });
     } else {
-      return res.json({ error: 'Orden no encontrado' });
+      return res.json({
+        error: 'Orden no encontrado',
+      });
     }
   }
 
@@ -48,7 +60,9 @@ class Carrito {
     const insert = req.body;
     data[id].product.push(insert);
     await fs.promises.writeFile('./ordens.json', JSON.stringify(data));
-    return res.json({ producto: 'agregada' });
+    return res.json({
+      producto: 'agregada',
+    });
   }
 }
 
