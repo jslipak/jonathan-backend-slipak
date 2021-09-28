@@ -1,6 +1,5 @@
 const fs = require('fs');
-//const msg = JSON.parse(fs.readFileSync('./messages.json', (encoding = 'utf8')));
-const sqlMsg = require('../config/sqlite.config');
+const sqlMsg = require('../config/db.config');
 class Mensaje {
   async create(obj) {
     sqlMsg.insert(obj, 'messages');

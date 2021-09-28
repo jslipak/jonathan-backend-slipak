@@ -4,6 +4,10 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
 var _routes = require('./routes');
 
 var _routes2 = _interopRequireDefault(_routes);
@@ -26,7 +30,19 @@ var app = (0, _express2.default)();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var puerto = 8080;
+var NODE_ENV = process.env.NODE_ENV;
 
+if (NODE_ENV === 'mongo') {
+  var URL = 'mongodb://root:example@127.0.0.1:27017/ecommerce?authSource=admin';
+  _mongoose2.default.connect(URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(function (data) {
+    return console.log('se ha conectado con mongo');
+  }).catch(function (err) {
+    return console.log(err);
+  });
+}
 app.use((0, _morgan2.default)('dev'));
 app.use(_express2.default.json());
 app.use(_express2.default.urlencoded({

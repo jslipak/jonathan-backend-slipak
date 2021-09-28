@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -7,6 +8,18 @@ import Routes from './routes';
 import morgan from 'morgan';
 import handlebars from 'express-handlebars';
 import SocketIO from './services/socket.service';
+const { NODE_ENV } = process.env;
+if (NODE_ENV === 'mongo') {
+  const URL =
+    'mongodb://root:example@127.0.0.1:27017/ecommerce?authSource=admin';
+  mongoose
+    .connect(URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((data) => console.log('se ha conectado con mongo'))
+    .catch((err) => console.log(err));
+}
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(

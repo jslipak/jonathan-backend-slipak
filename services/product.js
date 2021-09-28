@@ -1,5 +1,5 @@
 let visitas = { visitas: { items: 0, item: 0 } };
-const db = require('../config/sqlite.config');
+const db = require('../config/db.config');
 
 class Producto {
   async create(req, res) {
@@ -10,7 +10,7 @@ class Producto {
   async createIO(obj) {
     const insertData = obj;
     const id = await db.insert(insertData, 'products');
-    insertData.id = id.id;
+    insertData.id = id;
     return insertData;
   }
 
@@ -18,8 +18,16 @@ class Producto {
     visitas.visitas.items = visitas.visitas.items + 1;
     const msg = await db.find('messages');
     const productos = await db.find('products');
-    res.render('index', { products: productos, messages: msg.reverse() });
+    console.log('aca en productos: na almacena', productos);
+    productos.map((v) => {
+      if ('_id' in v) {
+        v.id = v._id;
+      }
+      return { ...v };
+    });
+    res.render('index', { products: productos, messages: msg?.reverse() });
   }
+
   async findOneById(req, res) {
     let id = req.params.id;
     let text = await db.findOne(id, 'products');
@@ -38,6 +46,7 @@ class Producto {
     return res.json({ producto: 'Producto Actualizado' });
   }
   async getDataId(id) {
+    console.log(id);
     return db.findOne(id, 'products');
   }
   random(_req, res) {
