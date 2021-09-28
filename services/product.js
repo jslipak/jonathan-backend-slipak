@@ -1,5 +1,6 @@
 let visitas = { visitas: { items: 0, item: 0 } };
 const db = require('../config/db.config');
+const { NODE_ENV } = process.env;
 
 class Producto {
   async create(req, res) {
@@ -18,7 +19,6 @@ class Producto {
     visitas.visitas.items = visitas.visitas.items + 1;
     const msg = await db.find('messages');
     const productos = await db.find('products');
-    console.log('aca en productos: na almacena', productos);
     productos.map((v) => {
       if ('_id' in v) {
         v.id = v._id;
@@ -40,14 +40,18 @@ class Producto {
   }
 
   async updateOneById(req, res) {
-    let id = parseInt(req.params.id);
+    console.log(req);
+    let id = req.params.id;
     const obj = req.body;
     await db.updateOne(obj, id, 'products');
     return res.json({ producto: 'Producto Actualizado' });
   }
   async getDataId(id) {
-    console.log(id);
-    return db.findOne(id, 'products');
+    const product = await db.findOne(id, 'products');
+    if ('_id' in product) {
+      product.id = product._id;
+    }
+    return product;
   }
   random(_req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);
