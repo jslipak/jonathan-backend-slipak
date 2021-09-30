@@ -55,19 +55,16 @@ if (NODE_ENV != 'mongo') {
   }
 
   function insert(post, table) {
-    console.log(table, 'aca estoy', post);
     const sendInsert = (obj) => obj.create(post).then((data) => data._id);
     return selectCollection(table, sendInsert);
   }
 
   function findOne(id, table) {
-    console.log(id);
     const sendFind = (obj) => {
       return obj
         .findById(id)
         .lean()
         .then((data) => {
-          console.log(data);
           return data;
         });
     };
@@ -75,7 +72,6 @@ if (NODE_ENV != 'mongo') {
   }
 
   function updateOne(obj, id, table) {
-    console.log('aca esta objeto que trae', obj);
     var newId = new mongoose.mongo.ObjectId(id);
     return products.findByIdAndUpdate(newId, obj);
   }

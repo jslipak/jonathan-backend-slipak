@@ -40,7 +40,6 @@ class Producto {
   }
 
   async updateOneById(req, res) {
-    console.log(req);
     let id = req.params.id;
     const obj = req.body;
     await db.updateOne(obj, id, 'products');
