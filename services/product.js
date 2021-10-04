@@ -56,6 +56,21 @@ class Producto {
     }
     return product;
   }
+
+  async getFilter(req, res) {
+    console.log('estoy aca en el puto gen Filter');
+    let value;
+    const field = req.query.field;
+    if (field == 'title' || field == 'codigo') {
+      value = req.query.value;
+    } else {
+      value = { from: parseInt(req.query.from), to: parseInt(req.query.to) };
+    }
+    console.log(value, 'aca en gen filter', field);
+    const response = await db.filter(field, value);
+    res.json(response);
+  }
+
   random(_req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);
     visitas.visitas.item = visitas.visitas.item + 1;

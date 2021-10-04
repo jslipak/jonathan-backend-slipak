@@ -17,6 +17,7 @@ route.get('/edit/:id', async (req, res) => {
 });
 
 route.get('/', Producto.getAll);
+route.get('/filter', Producto.getFilter);
 route.get('/:id', Producto.findOneById);
 route.get('/random', Producto.random);
 route.get('/visitas', Producto.visitas);

@@ -27,6 +27,17 @@ if (NODE_ENV != 'mongo') {
   function updateOne(obj, id, table) {
     return db(table).where({ id: id }).update(obj);
   }
+  function filter(field = '', value) {
+    if (!['title', 'codigo', 'price', 'stock'].includes(field)) {
+      return { Error: 'No existe ese campo' };
+    }
+    // value could be a string or to range a object {from, to}
+    if (field == 'title' || field == 'codigo') {
+      return db('products').where({ [field]: value }); //products.where(field).equals(value);
+    } else if (field == 'price' || field == 'stock') {
+      return db('products').whereBetween(field, [value.from, value.to]);
+    }
+  }
 } else {
   const mongoose = require('mongoose');
   const products = require('../models/product.model');
@@ -87,7 +98,6 @@ if (NODE_ENV != 'mongo') {
     if (field == 'title' || field == 'codigo') {
       return products.where(field).equals(value);
     } else if (field == 'price' || field == 'stock') {
-      console.log({ [field]: { $gte: value.from, $lt: value.to } });
       return products.find({ [field]: { $gte: value.from, $lt: value.to } });
     }
   }
