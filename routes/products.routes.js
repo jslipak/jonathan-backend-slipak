@@ -17,6 +17,8 @@ route.get('/edit/:id', async (req, res) => {
 });
 
 route.get('/', Producto.getAll);
+// tiene que estar antes para que no lo tome como ID
+route.get('/filter', Producto.getFilter);
 route.get('/:id', Producto.findOneById);
 route.get('/random', Producto.random);
 route.get('/visitas', Producto.visitas);

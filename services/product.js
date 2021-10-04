@@ -52,6 +52,19 @@ class Producto {
     }
     return product;
   }
+  async getFilter(req, res) {
+    let value;
+    const field = req.query.field;
+    if (field == 'title' || field == 'codigo') {
+      value = req.query.value;
+    } else {
+      value = { from: parseInt(req.query.from), to: parseInt(req.query.to) };
+    }
+
+    console.log(value);
+    const response = await db.filter(field, value);
+    res.json(response);
+  }
   random(_req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);
     visitas.visitas.item = visitas.visitas.item + 1;
