@@ -38,18 +38,23 @@
             const title = inputs[0].value
             const price = inputs[1].value
             const thumbnail = inputs[2].value
+            const stock = inputs[3].value
+            const codigo = inputs[4].value
             const obj = {
                 title,
                 price,
-                thumbnail
+                thumbnail,
+                stock,
+                codigo
             }
             socket.emit('producto', obj)
             inputs[0].value =""
             inputs[1].value =""
             inputs[2].value =""
+            inputs[3].value =""
+            inputs[4].value =""
         })
         socket.on("producto", (msg) => {
-            console.log("en socket:", msg)
             const addHtml = `<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
             tbody.insertAdjacentHTML('beforeend', addHtml)
         })
