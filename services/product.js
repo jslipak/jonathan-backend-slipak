@@ -11,7 +11,11 @@ class Producto {
   async createIO(obj) {
     const insertData = obj;
     const id = await db.insert(insertData, 'products');
-    insertData.id = id;
+    if (NODE_ENV == 'mongo') {
+      insertData.id = id;
+    } else {
+      insertData.id = id.id;
+    }
     return insertData;
   }
 

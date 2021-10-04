@@ -29,10 +29,14 @@
             const title = inputs[0].value
             const price = inputs[1].value
             const thumbnail = inputs[2].value
+            const stock = inputs[3].value
+            const codigo= inputs[4].value
             const obj = {
                 title,
                 price,
-                thumbnail
+                thumbnail,
+                stock,
+                codigo
             }
             socket.emit('producto', obj)
             window.location.href = '../productos'

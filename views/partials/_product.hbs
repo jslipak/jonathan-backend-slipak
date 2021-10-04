@@ -1,14 +1,21 @@
-
-                <div class="mb-3">
-                    <label for="title" class="form-label">Titulo:</label>
-                    <input  required type="text" name="title" class="form-control" value={{#if edit.price}}{{edit.title}}{{/if}}>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Precio:</label>
-                    <input required type="number" name="price" class="form-control" value={{#if edit.price}}{{edit.price}}{{/if}}>
-                </div>
-                <div class="mb-3">
-                    <label for="thumbnail" class="form-label">Thumbnail</label>
-                    <input required type="text" name="thumbnail" class="form-control" value={{#if edit.price}}{{edit.thumbnail}}{{/if}}>
-                </div>
-                <button type="submit" class="float-end btn btn-primary">Submit</button>
+<div class="mb-3">
+    <label for="title" class="form-label">Titulo:</label>
+    <input required type="text" name="title" class="form-control" value={{#if edit.price}}{{edit.title}}{{/if}}>
+</div>
+<div class="mb-3">
+    <label for="price" class="form-label">Precio:</label>
+    <input required type="number" name="price" class="form-control" value={{#if edit.price}}{{edit.price}}{{/if}}>
+</div>
+<div class="mb-3">
+    <label for="thumbnail" class="form-label">Thumbnail</label>
+    <input required type="text" name="thumbnail" class="form-control" value={{#if edit.price}}{{edit.thumbnail}}{{/if}}>
+</div>
+<div class="mb-3">
+    <label for="thumbnail" class="form-label">Stock</label>
+    <input required type="number" name="stock" class="form-control" value={{#if edit.price}}{{edit.thumbnail}}{{/if}}>
+</div>
+<div class="mb-3">
+    <label for="thumbnail" class="form-label">Codigo</label>
+    <input required type="text" name="codigo" class="form-control" value={{#if edit.price}}{{edit.thumbnail}}{{/if}}>
+</div>
+<button type="submit" class="float-end btn btn-primary">Submit</button>
