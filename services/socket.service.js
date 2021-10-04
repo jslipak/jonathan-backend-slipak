@@ -6,6 +6,7 @@ module.exports = function (io) {
     console.log(`Usuario conectado: ${socket.id}`);
     socket.on('producto', async (arg) => {
       const element = await Productos.createIO(arg);
+      console.log(arg);
       io.emit('producto', element);
     });
     socket.on('deleteProduct', (arg) => {
@@ -15,6 +16,7 @@ module.exports = function (io) {
       io.emit('updateProduct', obj);
     });
     socket.on('msg', (obj) => {
+      console.log('estoy socket on msj: ', obj);
       obj.date = new Date();
       messages.create(obj);
       io.emit('msg', obj);

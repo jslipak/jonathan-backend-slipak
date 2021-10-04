@@ -10,6 +10,7 @@ class Producto {
   }
   async createIO(obj) {
     const insertData = obj;
+    console.log(obj);
     const id = await db.insert(insertData, 'products');
     insertData.id = id;
     return insertData;

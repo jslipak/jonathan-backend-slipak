@@ -11,6 +11,7 @@ if (NODE_ENV != 'mongo') {
   }
 
   function insert(post, table) {
+    console.log(post);
     return db(table)
       .insert(post)
       .then((id) => ({ id: id[0] }));
@@ -34,7 +35,7 @@ if (NODE_ENV != 'mongo') {
     }
     // value could be a string or to range a object {from, to}
     if (field == 'title' || field == 'codigo') {
-      return products.where(field).equals(value);
+      return db('products').where({ fields: value }); //products.where(field).equals(value);
     } else if (field == 'price' || field == 'stock') {
       console.log({ [field]: { $gte: value.from, $lt: value.to } });
       return products.find({ [field]: { $gte: value.from, $lt: value.to } });
