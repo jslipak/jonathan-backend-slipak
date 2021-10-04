@@ -79,5 +79,17 @@ if (NODE_ENV != 'mongo') {
     var newId = new mongoose.mongo.ObjectId(id);
     return products.findByIdAndDelete(newId);
   }
+  function filter(field = '', value) {
+    if (!['title', 'codigo', 'price', 'stock'].includes(field)) {
+      return { Error: 'No existe ese campo' };
+    }
+    // value could be a string or to range a object {from, to}
+    if (field == 'title' || field == 'codigo') {
+      return products.where(field).equals(value);
+    } else if (field == 'price' || field == 'stock') {
+      console.log({ [field]: { $gte: value.from, $lt: value.to } });
+      return products.find({ [field]: { $gte: value.from, $lt: value.to } });
+    }
+  }
 }
-module.exports = { find, insert, findOne, deleteOne, updateOne };
+module.exports = { find, insert, findOne, deleteOne, updateOne, filter };
