@@ -18,9 +18,8 @@ route.get('/edit/:id', async (req, res) => {
 
 route.get('/', Producto.getAll);
 route.get('/filter', Producto.getFilter);
+route.get('/vista-test', Producto.getTest);
 route.get('/:id', Producto.findOneById);
-route.get('/random', Producto.random);
-route.get('/visitas', Producto.visitas);
 route.post('/', Producto.create);
 route.delete('/:id', Producto.deleteOneById);
 route.put('/:id', Producto.updateOneById);

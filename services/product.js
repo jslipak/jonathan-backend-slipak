@@ -1,5 +1,5 @@
-let visitas = { visitas: { items: 0, item: 0 } };
 const db = require('../config/db.config');
+const faker = require('faker/locale/es');
 const { NODE_ENV } = process.env;
 
 class Producto {
@@ -20,7 +20,6 @@ class Producto {
   }
 
   async getAll(_req, res) {
-    visitas.visitas.items = visitas.visitas.items + 1;
     const msg = await db.find('messages');
     const productos = await db.find('products');
     productos.map((v) => {
@@ -66,17 +65,26 @@ class Producto {
     } else {
       value = { from: parseInt(req.query.from), to: parseInt(req.query.to) };
     }
-    console.log(value, 'aca en gen filter', field);
     const response = await db.filter(field, value);
     res.json(response);
   }
 
-  random(_req, res) {
-    res.json(data[Math.floor(Math.random() * data.length)]);
-    visitas.visitas.item = visitas.visitas.item + 1;
-  }
-  visitas(_req, res) {
-    res.json(visitas);
+  async getTest(req, res) {
+    if (parseInt(req.query.cant) === 0) res.json({ error: 'no hay producto' });
+    const cant = parseInt(req.query.cant) || 10;
+    const response = [];
+    for (let i = 0; i < cant; i++) {
+      const title = faker.commerce.productName();
+      const obj = {
+        title,
+        price: faker.commerce.price(),
+        thumbnail: faker.image.imageUrl(),
+        stock: faker.datatype.number(10, 50),
+        codigo: `abc-${title}`,
+      };
+      response.push(obj);
+    }
+    res.json(response);
   }
 }
 
