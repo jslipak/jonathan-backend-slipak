@@ -70,21 +70,24 @@ class Producto {
   }
 
   async getTest(req, res) {
-    if (parseInt(req.query.cant) === 0) res.json({ error: 'no hay producto' });
-    const cant = parseInt(req.query.cant) || 10;
-    const response = [];
-    for (let i = 0; i < cant; i++) {
-      const title = faker.commerce.productName();
-      const obj = {
-        title,
-        price: faker.commerce.price(),
-        thumbnail: faker.image.imageUrl(),
-        stock: faker.datatype.number(10, 50),
-        codigo: `abc-${title}`,
-      };
-      response.push(obj);
+    if (parseInt(req.query.cant) === 0) {
+      res.json({ error: 'no hay producto' });
+    } else {
+      const cant = parseInt(req.query.cant) || 10;
+      const response = [];
+      for (let i = 0; i < cant; i++) {
+        const title = faker.commerce.productName();
+        const obj = {
+          title,
+          price: faker.commerce.price(),
+          thumbnail: faker.image.imageUrl(),
+          stock: faker.datatype.number(10, 50),
+          codigo: `abc-${title}`,
+        };
+        response.push(obj);
+      }
+      res.json(response);
     }
-    res.json(response);
   }
 }
 
