@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Producto = require('../services/product');
+const Producto = require('../services/product.service');
 const route = Router();
 const { NODE_ENV } = process.env;
 route.get('/new', (req, res) => {

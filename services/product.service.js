@@ -1,6 +1,8 @@
 const db = require('../config/db.config');
 const faker = require('faker/locale/es');
 const { NODE_ENV } = process.env;
+const normalizedMessages = require('../services/normalizr.service');
+const util = require('util');
 
 class Producto {
   async create(req, res) {
@@ -21,6 +23,13 @@ class Producto {
 
   async getAll(_req, res) {
     const msg = await db.find('messages');
+    const temp = await normalizedMessages(msg);
+    function print(objeto) {
+      console.log(util.inspect(objeto, false, 12, true));
+    }
+
+    print(temp);
+
     const productos = await db.find('products');
     productos.map((v) => {
       if ('_id' in v) {
