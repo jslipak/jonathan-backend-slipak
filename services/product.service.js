@@ -24,8 +24,6 @@ class Producto {
   async getAll(_req, res) {
     const msg = await db.find('messages');
     const temp = JSON.stringify(normalizedMessages(msg));
-    console.log('aca es msg db: ', msg);
-    console.log(temp);
     const productos = await db.find('products');
     productos.map((v) => {
       if ('_id' in v) {
