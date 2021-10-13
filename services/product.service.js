@@ -23,13 +23,9 @@ class Producto {
 
   async getAll(_req, res) {
     const msg = await db.find('messages');
-    const temp = await normalizedMessages(msg);
-    function print(objeto) {
-      console.log(util.inspect(objeto, false, 12, true));
-    }
-
-    print(temp);
-
+    const temp = JSON.stringify(normalizedMessages(msg));
+    console.log('aca es msg db: ', msg);
+    console.log(temp);
     const productos = await db.find('products');
     productos.map((v) => {
       if ('_id' in v) {
@@ -37,7 +33,7 @@ class Producto {
       }
       return { ...v };
     });
-    res.render('index', { products: productos, messages: msg?.reverse() });
+    res.render('index', { products: productos, temp });
   }
 
   async findOneById(req, res) {

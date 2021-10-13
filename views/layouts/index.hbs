@@ -7,33 +7,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <script src="/socket.io/socket.io.js">
-
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
 
 </head>
 
 <body>
     <div class="container">
         {{> _navbar}} {{> _product}} {{> _table}} {{>_chat}}
-    </div>
+    </div
     <div id="test">
 
     </div>
     <script>
+        const
+        {
+            schema,
+            normalized,
+            denormalize
+        } = normalizr;
+        const userSchema = new schema.Entity('users',
+        {
+            idAttribute: (value) => value.user,
+        });
+
+        const userListSchema = new schema.Entity('messages', userSchema,
+        {
+            user: userSchema,
+            idAttribute: (value) =>
+            {
+                console.log(userSchema);
+                return value._id ? value._id : value.id;
+            },
+        });
+        const objMsgTest = JSON.parse('{{{temp}}}')
+        const oldMsg = denormalize(objMsgTest.result, [userListSchema], objMsgTest.entities)
+        oldMsg.forEach(obj => {
+             let text =
+            `<li style="font-size: 20px; list-style: none;"><span style="color:blue">${obj.user}: </span> <span style="color:green">${obj.msg}</span> @<span style="color:brown"> ${obj.date}</span></li><hr/>`
+        msgToInsert.insertAdjacentHTML("afterbegin", text)
+        })
+        console.log(`el porcentaje comprimido es de el:  ${(JSON.stringify(oldMsg).length / JSON.stringify(objMsgTest).length) * 100} %`)
         var socket = io()
         const tbody = document.querySelector('tbody')
         const btnAdd = document.querySelector('button')
 
-        function borrarProducto(id) {
-            fetch(`http://127.0.0.1:8080/api/productos/${id}`, {
+        function borrarProducto(id)
+        {
+            fetch(`http://127.0.0.1:8080/api/productos/${id}`,
+            {
                 method: "DELETE"
-            }).then(() => {
+            }).then(() =>
+            {
                 socket.emit("deleteProduct", id)
 
             })
         }
 
-        btnAdd.addEventListener('click', (e) => {
+        btnAdd.addEventListener('click', (e) =>
+        {
             const inputs = document.querySelectorAll("input")
             const title = inputs[0].value
             const price = inputs[1].value
@@ -48,25 +80,30 @@
                 codigo
             }
             socket.emit('producto', obj)
-            inputs[0].value =""
-            inputs[1].value =""
-            inputs[2].value =""
-            inputs[3].value =""
-            inputs[4].value =""
+            inputs[0].value = ""
+            inputs[1].value = ""
+            inputs[2].value = ""
+            inputs[3].value = ""
+            inputs[4].value = ""
         })
-        socket.on("producto", (msg) => {
-            const addHtml = `<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
+        socket.on("producto", (msg) =>
+        {
+            const addHtml =
+                `<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
             tbody.insertAdjacentHTML('beforeend', addHtml)
         })
-        socket.on("deleteProduct", (msg) => {
+        socket.on("deleteProduct", (msg) =>
+        {
             const deleteItem = document.getElementById(msg)
             deleteItem.remove();
         })
-            socket.on("updateProduct", (msg) =>  {
-                console.log(msg)
-                const change = document.getElementById(msg.id)
-                change.innerHTML=`<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
- 
-            })
+        socket.on("updateProduct", (msg) =>
+        {
+            console.log(msg)
+            const change = document.getElementById(msg.id)
+            change.innerHTML =
+                `<tr id="${msg.id}"> <th scope="row"><a href="/api/productos/${msg.id}">${msg.id}</a></th> <td>${msg.title}</td> <td>${msg.price}</td> <td>${msg.thumbnail}</td> <td> <a href="/api/productos/edit/${msg.id}">Edit</a> <button onclick="borrarProducto(${msg.id})">Borrar</button> </td> </tr> `
+
+        })
     </script>
 </body>

@@ -2,10 +2,6 @@
     <h1 class="mx-auto display-4 text-center">Chat Messages</h1>
     <div class="border mx-auto rounded" style="height: 400px;width: 90%; overflow:scroll;">
         <ul id="msgToInsert" style="list-style: none;">
-            {{#each messages}}
-            <li style="font-size: 20px; list-style: none;"> <span style="color:blue">{{this.user}}:</span> <span style="color: green">{{this.msg}}</span> @ <span style="color: brown">{{this.date}}</span></li>
-            <hr/>
-            {{/each}}
         </ul>
     </div>
     <div class="mb-3">
