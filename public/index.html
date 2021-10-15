@@ -26,24 +26,28 @@
             </li>
         </ul>
 
-        <div class="jumbotron">
-            <form action="/api/productos" method="post">
-                <legend>Nuevo Producto</legend>
-                <div class="mb-3">
-                    <label for="title" class="form-label">Titulo:</label>
-                    <input type="text" name="title" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Precio:</label>
-                    <input type="number" name="price" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="thumbnail" class="form-label">Thumbnail</label>
-                    <input type="text" name="thumbnail" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
+
+        <main class="form-signin d-flex align-content-between flex-wrap">
+            <div class="jumbotron w-50 m-auto p-3">
+                <form>
+                    <h1 class="h3 mb-3 text-center fw-normal">log-in</h1>
+
+                    <div class="form-floating">
+                        <input type="email" class="form-control mb-3" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="w-50 mt-2 btn text-align-middle btn-primary"
+                            type="submit">Log-in</button>
+                    </div>
+                </form>
+            </div>
+        </main>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
