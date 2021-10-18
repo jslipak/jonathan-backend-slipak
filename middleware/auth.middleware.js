@@ -4,7 +4,7 @@ const auth = function (req, res, next) {
     return res.redirect(301, '/');
   }
 
-  req.session.cookie.maxAge = 1000 * 60;
+  req.session.cookie.maxAge = Date.now() + 1000 * 60;
   return next();
 };
 module.exports = auth;

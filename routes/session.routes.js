@@ -17,7 +17,7 @@ route.post('/login', (req, res) => {
   if (!req.session.user) {
     req.session.user = req.body.user;
     req.session.password = req.body.password;
-    req.session.cookie.maxAge = 1000 * 60;
+    req.session.cookie.maxAge = Date.now() + 1000 * 60;
     res.redirect('/api/productos');
   }
 });
