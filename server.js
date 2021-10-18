@@ -4,6 +4,14 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _expressSession = require('express-session');
+
+var _expressSession2 = _interopRequireDefault(_expressSession);
+
+var _cookieParser = require('cookie-parser');
+
+var _cookieParser2 = _interopRequireDefault(_cookieParser);
+
 var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
@@ -43,6 +51,13 @@ if (NODE_ENV === 'mongo') {
     return console.log(err);
   });
 }
+
+app.use((0, _expressSession2.default)({
+  secret: 'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use((0, _cookieParser2.default)());
 app.use((0, _morgan2.default)('dev'));
 app.use(_express2.default.json());
 app.use(_express2.default.urlencoded({

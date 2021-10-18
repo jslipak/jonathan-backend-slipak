@@ -29,15 +29,15 @@
 
         <main class="form-signin d-flex align-content-between flex-wrap">
             <div class="jumbotron w-50 m-auto p-3">
-                <form>
+                <form  method="post" action="/api/sessions/login">
                     <h1 class="h3 mb-3 text-center fw-normal">log-in</h1>
 
                     <div class="form-floating">
-                        <input type="email" class="form-control mb-3" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
+                        <input type="text" name="user" class="form-control mb-3" id="floatingInput" placeholder="Ingrese su Usuario">
+                        <label for="floatingInput">Usuario</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
 

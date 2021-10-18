@@ -19,7 +19,7 @@ class Producto {
     return insertData;
   }
 
-  async getAll(_req, res) {
+  async getAll(req, res) {
     visitas.visitas.items = visitas.visitas.items + 1;
     const msg = await db.find('messages');
     const productos = await db.find('products');
@@ -29,7 +29,11 @@ class Producto {
       }
       return { ...v };
     });
-    res.render('index', { products: productos, messages: msg?.reverse() });
+    res.render('index', {
+      products: productos,
+      messages: msg?.reverse(),
+      user: req.session.user,
+    });
   }
 
   async findOneById(req, res) {

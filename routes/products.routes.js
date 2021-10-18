@@ -2,6 +2,7 @@ const { Router } = require('express');
 const Producto = require('../services/product');
 const route = Router();
 const { NODE_ENV } = process.env;
+const auth = require('../middleware/auth.middleware');
 route.get('/new', (req, res) => {
   return res.render('new', { layout: 'new' });
 });
@@ -16,7 +17,7 @@ route.get('/edit/:id', async (req, res) => {
   }
 });
 
-route.get('/', Producto.getAll);
+route.get('/', auth, Producto.getAll);
 route.get('/filter', Producto.getFilter);
 route.get('/:id', Producto.findOneById);
 route.get('/random', Producto.random);

@@ -1,4 +1,6 @@
 import express from 'express';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 const app = express();
 const http = require('http').Server(app);
@@ -20,6 +22,16 @@ if (NODE_ENV === 'mongo') {
     .then((data) => console.log('se ha conectado con mongo'))
     .catch((err) => console.log(err));
 }
+
+app.use(
+  session({
+    secret:
+      'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(
