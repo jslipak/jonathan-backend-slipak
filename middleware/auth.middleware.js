@@ -1,11 +1,10 @@
 const auth = function (req, res, next) {
-  //if (req.session && req.session.user === 'amy' && req.session.admin) {
   console.log(req.session.user);
-  if (req.session.user) {
-    return next();
-  } else {
+  if (!req.session.user) {
     return res.redirect(301, '/');
   }
-};
 
+  req.session.cookie.maxAge = 1000 * 60;
+  return next();
+};
 module.exports = auth;

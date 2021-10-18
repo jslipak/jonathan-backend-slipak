@@ -27,8 +27,8 @@ app.use(
   session({
     secret:
       'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   }),
 );
 app.use(cookieParser());

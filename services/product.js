@@ -75,11 +75,11 @@ class Producto {
     res.json(response);
   }
 
-  random(_req, res) {
+  random(req, res) {
     res.json(data[Math.floor(Math.random() * data.length)]);
     visitas.visitas.item = visitas.visitas.item + 1;
   }
-  visitas(_req, res) {
+  visitas(req, res) {
     res.json(visitas);
   }
 }

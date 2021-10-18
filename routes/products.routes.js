@@ -7,7 +7,7 @@ route.get('/new', (req, res) => {
   return res.render('new', { layout: 'new' });
 });
 
-route.get('/edit/:id', async (req, res) => {
+route.get('/edit/:id', auth, async (req, res) => {
   const id = req.params.id;
   let temp = await Producto.getDataId(id);
   if (NODE_ENV === 'mongo') {
@@ -17,13 +17,12 @@ route.get('/edit/:id', async (req, res) => {
   }
 });
 
+route.get('/filter', auth, Producto.getFilter);
+route.get('/:id', auth, Producto.findOneById);
+route.get('/random', auth, Producto.random);
+route.get('/visitas', auth, Producto.visitas);
+route.post('/', auth, Producto.create);
+route.delete('/:id', auth, Producto.deleteOneById);
+route.put('/:id', auth, Producto.updateOneById);
 route.get('/', auth, Producto.getAll);
-route.get('/filter', Producto.getFilter);
-route.get('/:id', Producto.findOneById);
-route.get('/random', Producto.random);
-route.get('/visitas', Producto.visitas);
-route.post('/', Producto.create);
-route.delete('/:id', Producto.deleteOneById);
-route.put('/:id', Producto.updateOneById);
-
 module.exports = route;

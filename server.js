@@ -54,8 +54,8 @@ if (NODE_ENV === 'mongo') {
 
 app.use((0, _expressSession2.default)({
   secret: 'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 }));
 app.use((0, _cookieParser2.default)());
 app.use((0, _morgan2.default)('dev'));
