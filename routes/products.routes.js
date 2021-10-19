@@ -3,10 +3,6 @@ const Producto = require('../services/product');
 const route = Router();
 const { NODE_ENV } = process.env;
 const auth = require('../middleware/auth.middleware');
-route.get('/new', (req, res) => {
-  return res.render('new', { layout: 'new' });
-});
-
 route.get('/edit/:id', auth, async (req, res) => {
   const id = req.params.id;
   let temp = await Producto.getDataId(id);
@@ -16,7 +12,9 @@ route.get('/edit/:id', auth, async (req, res) => {
     return res.render('edit', { layout: 'edit', edit: temp[0] });
   }
 });
-
+//route.get('/new', auth, (req, res) => {
+//return res.render('new', { layout: 'new' });
+//});
 route.get('/filter', auth, Producto.getFilter);
 route.get('/:id', auth, Producto.findOneById);
 route.get('/random', auth, Producto.random);
