@@ -29,7 +29,11 @@ app.use(
       'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
     resave: false,
     saveUninitialized: false,
-    cookie: {},
+    cookie: {
+      maxAge: 1000 * 60, // 1 min
+      sameSite: true,
+      secure: false,
+    },
   }),
 );
 app.use(cookieParser());
