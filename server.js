@@ -32,12 +32,19 @@ var _socket = require('./services/socket.service');
 
 var _socket2 = _interopRequireDefault(_socket);
 
+var _connectMongo = require('connect-mongo');
+
+var _connectMongo2 = _interopRequireDefault(_connectMongo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var puerto = 8080;
+
+var advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
 var NODE_ENV = process.env.NODE_ENV;
 
 if (NODE_ENV === 'mongo') {
@@ -53,10 +60,15 @@ if (NODE_ENV === 'mongo') {
 }
 
 app.use((0, _expressSession2.default)({
+  //store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
+  store: _connectMongo2.default.create({
+    mongoUrl: 'mongodb+srv://user_jona:<password>@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    mongoOptions: advancedOptions
+  }),
   secret: 'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: 1000 * 60 * 10 },
   rolling: true
 }));
 app.use((0, _cookieParser2.default)());

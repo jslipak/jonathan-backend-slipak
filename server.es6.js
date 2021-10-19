@@ -10,6 +10,9 @@ import Routes from './routes';
 import morgan from 'morgan';
 import handlebars from 'express-handlebars';
 import SocketIO from './services/socket.service';
+import MongoStore from 'connect-mongo';
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
 const { NODE_ENV } = process.env;
 if (NODE_ENV === 'mongo') {
   const URL =
@@ -25,11 +28,17 @@ if (NODE_ENV === 'mongo') {
 
 app.use(
   session({
+    //store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
+    store: MongoStore.create({
+      mongoUrl:
+        'mongodb+srv://user_jona:<password>@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      mongoOptions: advancedOptions,
+    }),
     secret:
       'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 1000 * 60 * 10 },
     rolling: true,
   }),
 );
