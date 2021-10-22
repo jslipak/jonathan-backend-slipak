@@ -36,15 +36,27 @@ var _connectMongo = require('connect-mongo');
 
 var _connectMongo2 = _interopRequireDefault(_connectMongo);
 
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _bcrypt = require('bcrypt');
+
+var _bcrypt2 = _interopRequireDefault(_bcrypt);
+
+var _passport = require('passport');
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _passportLocal = require('passport-local');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var puerto = 8080;
-
 var advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-
 var NODE_ENV = process.env.NODE_ENV;
 
 if (NODE_ENV === 'mongo') {
@@ -62,7 +74,7 @@ if (NODE_ENV === 'mongo') {
 app.use((0, _expressSession2.default)({
   //store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
   store: _connectMongo2.default.create({
-    mongoUrl: 'mongodb+srv://user_jona:<password>@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    mongoUrl: 'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     mongoOptions: advancedOptions
   }),
   secret: 'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',

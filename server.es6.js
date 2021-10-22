@@ -2,17 +2,20 @@ import express from 'express';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const puerto = 8080;
 import Routes from './routes';
 import morgan from 'morgan';
 import handlebars from 'express-handlebars';
 import SocketIO from './services/socket.service';
 import MongoStore from 'connect-mongo';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import passport from 'passport';
+import { Strategy } from 'passport-local';
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const puerto = 8080;
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-
 const { NODE_ENV } = process.env;
 if (NODE_ENV === 'mongo') {
   const URL =
@@ -31,7 +34,7 @@ app.use(
     //store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
     store: MongoStore.create({
       mongoUrl:
-        'mongodb+srv://user_jona:<password>@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+        'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
       mongoOptions: advancedOptions,
     }),
     secret:
