@@ -36,19 +36,9 @@ var _connectMongo = require('connect-mongo');
 
 var _connectMongo2 = _interopRequireDefault(_connectMongo);
 
-var _bodyParser = require('body-parser');
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _bcrypt = require('bcrypt');
-
-var _bcrypt2 = _interopRequireDefault(_bcrypt);
-
-var _passport = require('passport');
+var _passport = require('./services/passport.service');
 
 var _passport2 = _interopRequireDefault(_passport);
-
-var _passportLocal = require('passport-local');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71,18 +61,36 @@ if (NODE_ENV === 'mongo') {
   });
 }
 
-app.use((0, _expressSession2.default)({
-  //store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
-  store: _connectMongo2.default.create({
-    mongoUrl: 'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    mongoOptions: advancedOptions
-  }),
-  secret: 'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 10 },
-  rolling: true
+//app.use(
+//session({
+////store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
+//store: MongoStore.create({
+//mongoUrl:
+//'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+//mongoOptions: advancedOptions,
+//}),
+//secret:
+//'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
+//resave: false,
+//saveUninitialized: false,
+//cookie: { maxAge: 1000 * 60 * 10 },
+//rolling: true,
+//}),
+//);
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  cookie: {
+    httpOnly: false,
+    secure: false,
+    maxAge: 20000
+  },
+  rolling: true,
+  resave: true,
+  saveUninitialized: false
 }));
+app.use(_passport2.default.initialize());
+app.use(_passport2.default.session());
+console.log(_passport2.default);
 app.use((0, _cookieParser2.default)());
 app.use((0, _morgan2.default)('dev'));
 app.use(_express2.default.json());

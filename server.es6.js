@@ -7,10 +7,7 @@ import morgan from 'morgan';
 import handlebars from 'express-handlebars';
 import SocketIO from './services/socket.service';
 import MongoStore from 'connect-mongo';
-import bodyParser from 'body-parser';
-import bcrypt from 'bcrypt';
-import passport from 'passport';
-import { Strategy } from 'passport-local';
+import passport from './services/passport.service';
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -29,22 +26,38 @@ if (NODE_ENV === 'mongo') {
     .catch((err) => console.log(err));
 }
 
+//app.use(
+//session({
+////store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
+//store: MongoStore.create({
+//mongoUrl:
+//'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+//mongoOptions: advancedOptions,
+//}),
+//secret:
+//'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
+//resave: false,
+//saveUninitialized: false,
+//cookie: { maxAge: 1000 * 60 * 10 },
+//rolling: true,
+//}),
+//);
 app.use(
-  session({
-    //store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
-    store: MongoStore.create({
-      mongoUrl:
-        'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-      mongoOptions: advancedOptions,
-    }),
-    secret:
-      'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 10 },
+  require('express-session')({
+    secret: 'keyboard cat',
+    cookie: {
+      httpOnly: false,
+      secure: false,
+      maxAge: 20000,
+    },
     rolling: true,
+    resave: true,
+    saveUninitialized: false,
   }),
 );
+app.use(passport.initialize());
+app.use(passport.session());
+console.log(passport);
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(express.json());
