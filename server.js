@@ -32,11 +32,7 @@ var _socket = require('./services/socket.service');
 
 var _socket2 = _interopRequireDefault(_socket);
 
-var _connectMongo = require('connect-mongo');
-
-var _connectMongo2 = _interopRequireDefault(_connectMongo);
-
-var _passport = require('./services/passport.service');
+var _passport = require('./config/passport.config');
 
 var _passport2 = _interopRequireDefault(_passport);
 
@@ -46,7 +42,6 @@ var app = (0, _express2.default)();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var puerto = 8080;
-var advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 var NODE_ENV = process.env.NODE_ENV;
 
 if (NODE_ENV === 'mongo') {
@@ -61,22 +56,6 @@ if (NODE_ENV === 'mongo') {
   });
 }
 
-//app.use(
-//session({
-////store: MongoStore.create({ mongoUrl: 'mongodb://localhost/sessiones' }),
-//store: MongoStore.create({
-//mongoUrl:
-//'mongodb+srv://user_jona:jona1234@cluster0.a8xpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-//mongoOptions: advancedOptions,
-//}),
-//secret:
-//'Como te ven te tratan , si te ven mal te maltrata y si te ven bien te contrata',
-//resave: false,
-//saveUninitialized: false,
-//cookie: { maxAge: 1000 * 60 * 10 },
-//rolling: true,
-//}),
-//);
 app.use(require('express-session')({
   secret: 'keyboard cat',
   cookie: {
@@ -88,16 +67,16 @@ app.use(require('express-session')({
   resave: true,
   saveUninitialized: false
 }));
+
 app.use(_passport2.default.initialize());
 app.use(_passport2.default.session());
-console.log(_passport2.default);
 app.use((0, _cookieParser2.default)());
 app.use((0, _morgan2.default)('dev'));
 app.use(_express2.default.json());
 app.use(_express2.default.urlencoded({
   extended: true
 }));
-app.use(_express2.default.static('public'));
+//app.use(express.static('public'));
 app.use('/api', _routes2.default);
 
 app.engine('hbs', (0, _expressHandlebars2.default)({

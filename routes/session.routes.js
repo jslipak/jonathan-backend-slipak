@@ -1,25 +1,19 @@
 const { Router } = require('express');
 const route = Router();
-
-route.get('/con-session', (req, res) => {
-  if (req.session.contador) {
-    req.session.contador++ |
-      res.send(`Ud. ha visitado el sitio ${req.session.contador} veces.`);
-  } else {
-    req.session.contador = 1;
-    res.send('Bienvenido!');
-  }
-});
-
-route.post('/login', (req, res) => {
-  console.log(req.body);
-  console.log(req.session);
-  if (!req.session.user) {
-    req.session.user = req.body.user;
-    req.session.password = req.body.password;
-    res.redirect('/api/productos');
-  }
-});
+const Session = require('../services/session.service');
+const passport = require('../config/passport.config');
+route.get('/login', Session.getLogin);
+route.get('/signup', Session.getSignUp);
+route.post(
+  '/login',
+  passport.authenticate('login', { failureRedirect: '/api/sessions/login' }),
+  Session.passLogin,
+);
+route.post(
+  '/signup',
+  passport.authenticate('signup', { failureRedirect: '/api/sessions/login' }),
+  Session.createUser,
+);
 route.get('/logout', (req, res) => {
   const name = req.session.user;
   req.session.destroy((err) => {

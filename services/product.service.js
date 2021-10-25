@@ -3,6 +3,10 @@ const db = require('../config/db.config');
 const { NODE_ENV } = process.env;
 
 class Producto {
+  constructor() {
+    this.getAll = this.getAll.bind(this);
+  }
+  // bind
   async create(req, res) {
     const insertData = req.body;
     await db.insert(insertData, 'products');
@@ -20,7 +24,7 @@ class Producto {
   }
 
   async getAll(req, res) {
-    visitas.visitas.items = visitas.visitas.items + 1;
+    console.log(req);
     const msg = await db.find('messages');
     const productos = await db.find('products');
     productos.map((v) => {

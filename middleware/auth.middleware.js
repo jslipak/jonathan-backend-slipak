@@ -1,12 +1,10 @@
 const auth = function (req, res, next) {
-  console.log('console.log --> Session:', req.session);
-  console.log('try', req.session.cookie.expires);
-  if (req.session.user !== 'Joana') {
-    req.session.destroy();
-    console.log('paso por aca');
-    return res.redirect(301, '/');
+  console.log(req);
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/login');
   }
-
-  return next();
 };
+
 module.exports = auth;

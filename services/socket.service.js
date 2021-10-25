@@ -1,4 +1,4 @@
-const Productos = require('./product');
+const Productos = require('./product.service');
 const messages = require('./message.service');
 
 module.exports = function (io) {
