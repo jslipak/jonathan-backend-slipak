@@ -11,17 +11,8 @@ route.post(
 );
 route.post(
   '/signup',
-  passport.authenticate('signup', { failureRedirect: '/api/sessions/login' }),
+  passport.authenticate('signup', { failureRedirect: '/api/' }),
   Session.createUser,
 );
-route.get('/logout', (req, res) => {
-  const name = req.session.user;
-  req.session.destroy((err) => {
-    if (!err) {
-      res.send(`<h1> Hasta Luego ${name}`);
-    } else {
-      res.send({ status: 'Logout ERROR', body: err });
-    }
-  });
-});
+route.get('/logout', Session.logout);
 module.exports = route;

@@ -55,6 +55,12 @@ if (NODE_ENV === 'mongo') {
     return console.log(err);
   });
 }
+app.engine('hbs', (0, _expressHandlebars2.default)({
+  extname: 'hbs',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials',
+  defaultLayout: 'index'
+}));
 
 app.use(require('express-session')({
   secret: 'keyboard cat',
@@ -76,16 +82,8 @@ app.use(_express2.default.json());
 app.use(_express2.default.urlencoded({
   extended: true
 }));
-//app.use(express.static('public'));
 app.use('/api', _routes2.default);
-
-app.engine('hbs', (0, _expressHandlebars2.default)({
-  extname: 'hbs',
-  layoutsDir: __dirname + '/views/layouts',
-  partialsDir: __dirname + '/views/partials',
-  defaultLayout: 'index'
-}));
-
+app.use(_express2.default.static('public'));
 (0, _socket2.default)(io);
 
 app.set('views', './views/layouts');

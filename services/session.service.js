@@ -5,14 +5,24 @@ class Session {
     return res.render('login', { layout: 'login' });
   }
   passLogin(req, res) {
-    return res.json({ paso: 'login' });
+    return res.redirect('/api/productos');
   }
   getSignUp(req, res) {
     return res.render('signup', { layout: 'signup' });
   }
   createUser(req, res) {
     console.log(req.body);
-    res.redirect('/api/prducts');
+    res.redirect('/api/productos/');
+  }
+  logout(req, res) {
+    const name = req.user.username;
+    req.session.destroy((err) => {
+      if (!err) {
+        res.redirect('/');
+      } else {
+        res.send({ status: 'Logout ERROR', body: err });
+      }
+    });
   }
 }
 

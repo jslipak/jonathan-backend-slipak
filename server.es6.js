@@ -23,6 +23,15 @@ if (NODE_ENV === 'mongo') {
     .then((data) => console.log('se ha conectado con mongo'))
     .catch((err) => console.log(err));
 }
+app.engine(
+  'hbs',
+  handlebars({
+    extname: 'hbs',
+    layoutsDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials',
+    defaultLayout: 'index',
+  }),
+);
 
 app.use(
   require('express-session')({
@@ -48,19 +57,8 @@ app.use(
     extended: true,
   }),
 );
-//app.use(express.static('public'));
 app.use('/api', Routes);
-
-app.engine(
-  'hbs',
-  handlebars({
-    extname: 'hbs',
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials',
-    defaultLayout: 'index',
-  }),
-);
-
+app.use(express.static('public'));
 SocketIO(io);
 
 app.set('views', './views/layouts');

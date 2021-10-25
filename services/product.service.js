@@ -3,10 +3,6 @@ const db = require('../config/db.config');
 const { NODE_ENV } = process.env;
 
 class Producto {
-  constructor() {
-    this.getAll = this.getAll.bind(this);
-  }
-  // bind
   async create(req, res) {
     const insertData = req.body;
     await db.insert(insertData, 'products');
@@ -36,7 +32,7 @@ class Producto {
     res.render('index', {
       products: productos,
       messages: msg?.reverse(),
-      user: req.session.user,
+      user: req.user.username,
     });
   }
 

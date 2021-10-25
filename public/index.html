@@ -29,22 +29,19 @@
 
         <main class="form-signin d-flex align-content-between flex-wrap">
             <div class="jumbotron w-50 m-auto p-3">
-                <form  method="post" action="/api/sessions/login">
-                    <h1 class="h3 mb-3 text-center fw-normal">log-in</h1>
-
-                    <div class="form-floating">
-                        <input type="text" name="user" class="form-control mb-3" id="floatingInput" placeholder="Ingrese su Usuario">
-                        <label for="floatingInput">Usuario</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
-
                     <div class="text-center">
-                        <button class="w-50 mt-2 btn text-align-middle btn-primary"
-                            type="submit">Log-in</button>
+                        <a class="w-50 mt-2 btn text-align-middle btn-danger"
+                            href="/api/productos/">Productos</a>
                     </div>
+                    <div class="text-center">
+                        <a class="w-50 mt-2 btn text-align-middle btn-primary"
+                            href="/api/sessions/login">login</a>
+                    </div>
+                   <div class="text-center">
+                        <a class="w-50 mt-2 btn text-align-middle btn-success"
+                            href="/api/sessions/signup">Sign-Up</a>
+                    </div>
+
                 </form>
             </div>
         </main>
