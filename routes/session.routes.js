@@ -2,6 +2,14 @@ const { Router } = require('express');
 const route = Router();
 const Session = require('../services/session.service');
 const passport = require('../config/passport.config');
+route.get('/facebook', passport.authenticate('facebook'));
+app.get(
+  '/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/api/productos/',
+    failureRedirect: '/',
+  }),
+);
 route.get('/login', Session.getLogin);
 route.get('/signup', Session.getSignUp);
 route.post(

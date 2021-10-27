@@ -1,6 +1,7 @@
 const passport = require('passport');
 const bCrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const User = require('../models/user.model');
 
 passport.use(
@@ -37,6 +38,26 @@ passport.use(
         // User and password both match, return user from
         // done method which will be treated like success
         return done(null, user);
+      });
+    },
+  ),
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: '[FBID]',
+      clientSecret: '[FBSECRET]',
+      callbackURL: 'http://127.0.0.1:' + 8080 + '/facebook-token',
+    },
+    function (accessToken, refreshToken, profile, done) {
+      // asynchronous verification, for effect...
+      process.nextTick(function () {
+        // To keep the example simple, the user's Facebook profile is returned to
+        // represent the logged-in user.  In a typical application, you would want
+        // to associate the Facebook account with a user record in your database,
+        // and return that user instead.
+        return done(null, profile);
       });
     },
   ),
