@@ -46,8 +46,8 @@ passport.use(
 passport.use(
   new FacebookStrategy(
     {
-      clientID: '[FBID]',
-      clientSecret: '[FBSECRET]',
+      clientID: ID,
+      clientSecret: SECRET,
       callbackURL: 'http://127.0.0.1:' + 8080 + '/facebook-token',
     },
     function (accessToken, refreshToken, profile, done) {

@@ -3,7 +3,7 @@ const route = Router();
 const Session = require('../services/session.service');
 const passport = require('../config/passport.config');
 route.get('/facebook', passport.authenticate('facebook'));
-app.get(
+route.get(
   '/facebook/callback',
   passport.authenticate('facebook', {
     successRedirect: '/api/productos/',
